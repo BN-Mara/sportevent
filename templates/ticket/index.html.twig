@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello TicketController!{% endblock %}
+
+{% block stylesheets %}
+ 
+{% endblock %}
+
+{% block body %}
+<style>
+.cardtime{
+
+font-size:1.3rem;
+color:blue;
+}
+.carddesc{
+  font-size:1rem;
+  color:white;
+}
+
+</style>
+
+
+
+<!-- new form -->
+<div class="container">
+
+{% for row in events |batch(2) %}
+    <div class="row">
+        {% for article in row %}
+            <div class="col-md-6">
+                <div class="card">
+
+  <div class="bcontainer">
+  <form class="my-form" id="my-form" action="{{path('home')}}" method="POST">
+    <input type="hidden" value="1" name="event_id">
+    <h2><b>{{article.title}}</b></h2>
+    <p  class="cardtime"><b>{{article.eventTime|date('d/m/Y')}}</b></p> 
+    <p class="carddesc">{{article.description}}</p>
+    </br>
+    <p>
+    <div class="row">
+    <div class="col-sm-8">
+    <select name="price" required>
+          {% for tp in article.ticketPrice %}
+            <option value="{{tp.id}}">{{tp.type}} | {{tp.price}} $</option>
+          {% endfor %}
+        </select>
+    </div>
+    <div class="col-sm-4">
+      <input name="quantity" 
+      type="number" placeholder="Quantity" min="1" required>  
+    </div>
+    </div>
+    </p>
+    <br>
+    <p>
+      <button class="btn-grid" type="submit">Reserver</button>
+
+    </p>
+  </form>
+  </div>
+  </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+
+
+
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+<script>
+
+
+
+</script>
+{% endblock %}

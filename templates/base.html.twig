@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        <link href="{{asset('css/w3.css')}}" rel="stylesheet" type="text/css" />
+        <link href="{{asset('css/bootstrap-grid.min.css')}}" rel="stylesheet" type="text/css" />
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        -->
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}    
+        {% endblock %}
+         <script type="text/javascript" charset="utf8" src="{{asset('js/jquery.min.js')}}"></script>
+        {% block javascripts %}
+            {#{{ encore_entry_script_tags('app') }}#}
+        {% endblock %}
+    <style>
+    .bottom-padding{
+            padding-bottom:3.8rem
+    }
+    .bn-width{
+        width:100%
+    }
+    .bn-title{
+        font-size:1.5rem;
+        font-weight:900;
+    }
+    @media only screen and (min-width: 768px) {
+        .bottom-padding{
+            padding-bottom:5rem
+        }
+        .bn-width{
+            width:50%
+        }
+        .bn-title{
+        font-size:2.5rem;
+        font-weight:900;
+        padding-left:10rem;
+        }
+        .bnbgimage{
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7));
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+        }
+    }
+    
+    </style>
+    </head>
+    
+    <body >
+        <!-- content -->
+        <!--<div style="background-color:">
+            <h1 align="center" class="w3-text-white">Buy Your Ticket</h1>
+        </div>-->
+        <header>
+        <table style="width:100%">
+        <tr>
+        <td style="text-align:right;">
+            <img src="{{asset('img/logo.png')}}" width="48">
+            </td>
+            <td style="text-align:left">
+            <span class="bn-title">Achetez votre billet</span>
+        </td>
+        <td>
+            {% if app.user %}
+    
+           <!-- You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a> -->
+                             <a href="{{ path('app_logout') }}" >
+								<span>Logout</span>
+							</a>
+        
+                        {% else %}
+                        
+
+							<a href="{{ path('app_login') }}" >
+								<span>Sign in</span>
+							</a>
+                            
+                            {% endif %}
+
+        </td>
+        </tr>
+        </table>
+            
+        </header>
+
+        <div class="bottom-padding">
+        <p></p>
+        </div>
+      
+
+        {% block body %}{% endblock %}
+        <footer>
+  <div class="container">
+    <small>&copy; 2021 <a href="http://sportrdc.com/" target="_blank">Maajabu Talent</a>
+    </small>
+  </div>
+</footer>
+    </body>
+</html>

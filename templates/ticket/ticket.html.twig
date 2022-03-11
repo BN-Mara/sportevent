@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+@page { margin: auto!; }
+body { margin: auto; }
+</style>
+</head>
+    <body>
+        <!-- content -->
+{% set k = 200 %}
+{% for tkt in tickets %}
+
+<center>
+<div style="margin:auto">
+    <img src="{{ app.request.schemeAndHttpHost ~ app.request.baseUrl ~ '/img/logo.png' }}" width="64" alt="logoImg">
+</div>
+
+<div style="margin:auto">
+    <img src="{{ qr_code_data_uri(tkt.code) }}" width="150"/>
+</div>
+<br>
+
+<div style="margin:auto">
+    <span style="font-size:12px"> Avenue Nguma  7 Q/ Jolie parc Arret Erosion Croisement avenues Nguma et Mbemba</span>
+</div>
+</center>
+<span>-------------------------------------------<span>
+
+{% endfor %}
+
+
+    </body>
+</html>
