@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello TicketController!{% endblock %}
+{% block title %}Welcome!{% endblock %}
 
 {% block stylesheets %}
  
@@ -24,7 +24,13 @@ color:blue;
 
 <!-- new form -->
 <div class="container">
+{% for flashMessage in app.flashes('error') %}
 
+<div class="mbh-failure mbh-notification-box">
+   {{ flashMessage }}
+</div>
+
+{% endfor %}
 {% for row in events |batch(2) %}
     <div class="row">
         {% for article in row %}
@@ -32,6 +38,7 @@ color:blue;
                 <div class="card">
 
   <div class="bcontainer">
+  
   <form class="my-form" id="my-form" action="{{path('home')}}" method="POST">
     <input type="hidden" value="1" name="event_id">
     <h2><b>{{article.title}}</b></h2>

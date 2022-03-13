@@ -43,11 +43,28 @@ public function __construct(BuilderInterface $qrBuilder, SerializerInterface $se
     public function index(Request $request): Response
     {
         $rate = $this->getDoctrine()->getRepository(XRate::class)->find(1);
+        $allPrices = $this->getDoctrine()->getRepository(TicketPrice::class)->findAll();
+        $allEvents = $this->getDoctrine()->getRepository(SportEvent::class)->findAll();
         
         //$person = new TicketPerson();
         
         $entityManager = $this->getDoctrine()->getManager();
         if($request->getMethod() == "POST"){
+
+            if($this->isGranted("ROLE_USER") == false){
+                $this->addFlash("error", "You must login");
+                return $this->render('ticket/index.html.twig', [
+                    'prices' => $allPrices,
+                    'events'=>$allEvents,
+                    //'primes_json'=>$primes_json,
+                    'rate'=>$rate,
+                    //'seats_ec'=>$seatsEc,
+                    //'seats_vi'=>$seatVi
+                ]
+            );
+
+                
+            }
             
             $muser = $this->getUser();
             $price_id = $request->request->get('price');
@@ -83,8 +100,7 @@ public function __construct(BuilderInterface $qrBuilder, SerializerInterface $se
             //return $this->redirectToRoute("ticketpdf",["id"=>$person->getId()]);
 
         }
-        $allPrices = $this->getDoctrine()->getRepository(TicketPrice::class)->findAll();
-        $allEvents = $this->getDoctrine()->getRepository(SportEvent::class)->findAll();
+       
         //$seatsEc = $this->countAvailableSeat("ECONOMIC");
         //$seatVi = $this->countAvailableSeat("VIP");
         /*$primes_json = $this->serializer ->serialize(
